@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app"></div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+        const vm = new Vue({
+            el:'#app', //app이라는 곳에 인스턴스를 붙이겠다라는 뜻 / 엘리먼트를 지정해줘야함 : 인스턴스가 그려지는 화면의 시작점
+            data:{ // 뷰의 반응성(reactivity)가 반영된 데이터 속성
+                message:'hi'
+            },
+             methods: {
+
+            },
+            created:function(){
+
+            }
+            /*
+            #사용할수 있는 보통 속성 (이외에도 있음)
+            template, : 화면에 표시할 요소 (html,css 등) 
+            methods, : 화면의 동작과 이벤트 로직을 제어하는 메서드 - 여러개가 사용되므로 s를 붙임
+            created, : 뷰의 라이프 사이클과 관련된 속성
+            watch : data에서 정의한 속성이 변화 했을 때 추가 동작을 수행할 수 있게 정의 하는 속성       
+            */
+        });
+
+        // const Options = { //변수를 객체로 정의 할수 있지만 위의 방식으로 객체 리터럴 방식으로 정의함
+        //     el:'#app',
+        //     data:{
+        //         message:'hi'
+        //     },
+        //     methods:{
+
+        //     },
+        //     created:function(){
+
+        //     }
+        // }
+
+        // const vm = new Vue(Options);
+        console.log(vm);
+    </script>
+
+    <!--
+        생성자 함수 : 함수를 이용하여 인스턴스 생성 / 함수명의 경우 대문자로 시작
+        function Person(name,job){
+            this.name = name;
+            this.job = job;
+        }
+
+        //
+        function Vue(){ //생성자 함수로 미리 정의 해 두었기 때문에 
+            this.logText = function(){
+                console.log('hello');
+            }
+        }
+
+        const vm = new Vue(); //뷰에서 가져다 쓸 수 있음 - 재사용
+
+        vm.logText(); //hello가 찍힘
+
+    -->
+</body>
+</html>

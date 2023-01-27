@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        {{str}} <!-- 데이터 바인딩 -->
+        <p v-bind:id="uuid" v-bind:class="name">{{num}}</p>   <!--v-bind를 사용하여 data속성값으로 이용하겠다 -->
+        <!-- <p id="abc1234">{{num}}</p> -->
+        <!-- v-를 붙여서 사용하는 것이 디렉티브 방식 / data속성이나  computed속성을 사용할 수 있음-->
+        <p>{{doubleNum}}</p>
+        <div v-if="loading">
+            Loading...
+        </div>
+        <div v-else>
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nobis, vel?
+        </div>
+        <!-- v-if는 태그자체를 html에서 없애나 v-show는 css에서 display:none과 같다 -->
+        <div v-show="loading">
+            show
+        </div>
+
+        <!-- 인풋박스를 만들고 입력된 값을 p태그에 출력해 보기 -->
+        <input type="text" v-model="message">
+        <p>{{message}}</p>
+        <!-- https://vuejs.org/guide/essentials/forms.html -->
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+        new Vue({
+            el:'#app',
+            data:{
+                str: 'hi',
+                num:10,
+                //doubleNum:10*2 //이방식으로 쓰지않고 num의 값을 써야하므로 computed 방식으로 사용
+                uuid: 'abc1234',
+                name: 'text-blue',
+                loading: true,
+                message:'',
+            },
+            computed:{ //이미 데이터에 정의한 값을 재정의하여 사용할때 쓰는 방식
+                doubleNum:function(){
+                    return this.num * 2;
+                }
+            }
+        });
+    </script>
+</body>
+</html>

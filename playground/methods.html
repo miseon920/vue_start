@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <!-- <button v-on:click="메서드이름">click me</button> -->
+        <button v-on:click="logText">click me</button> <!--v-on:click 대신 @click 사용가능-->
+        <input type="text" v-on:keyup.enter="logText" v-model="message"> <!--.enter : Event Modifier -->
+        <p v-if="state">{{message}}</p>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+        new Vue({
+            el:'#app',
+            data:{
+                message:"",
+                state:false
+            },
+            methods:{
+                logText:function(){
+                    this.state = true;
+                    //console.log('clicked');                   
+                }
+            },
+        });
+    </script>
+</body>
+</html>
+
+<!-- 
+ Event Modifier 
+이벤트 리스너가 필요한 경우(하나의 이벤트가 발생했을때 부모 요소로 퍼져나가는 현상인 "버블링" 을 막기 위해)
+.stop
+.prevent
+.capture
+.self
+.once
+.passive
+
+뷰에서 제공하는것
+https://velog.io/@reasonz/2022.06.06-Vue-%EC%9D%B4%EB%B2%A4%ED%8A%B8-%ED%95%B8%EB%93%A4%EB%A7%81v-on-event-modifier
+https://vuejs.org/guide/essentials/event-handling.html
+ -->

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <!-- <app-header v-on:하위 컴포넌트에서 발생한 이벤트 이름="상위 컴포넌트의 메서드 이름"></app-header> -->
+        <app-header v-on:pass="logText"></app-header>
+        <app-content v-on:add="addNum"></app-content>
+        <p>{{num}}</p> <!--{{}}를 사용하여 data를 찍을 수 있음-->
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+        const appHeader = {
+            template:'<button v-on:click="passEvent">click me</button>',
+            //버튼에 클릭 이벤트가 발생했을 때 "passEvent"이라는 메서드를 실행
+            //이벤트발생 = v-on:이벤트이름="실행할메서드"
+            methods:{
+                passEvent: function(){
+                    this.$emit('pass'); //이벤트를 발생시킬 컴포넌트에서 $emit("이벤트명") 호출
+                }
+                /*
+                    메서드명 : function(){} 
+                */
+            }
+        }
+        
+        const appContent ={
+            template:'<button v-on:click="addNumber">add</button>',
+            methods:{
+                addNumber:function(){
+                    this.$emit('add');
+                }
+            },
+        }
+
+    const vm =  new Vue({
+            el:'#app',
+            components:{
+                'app-header': appHeader,
+                'app-content':appContent,
+            },
+            methods:{
+                logText:function(){
+                    console.log('hi');
+                },
+                addNum:function(){
+                   //console.log(this.num+=1);
+                   //console.log(this); this는 Vue를 가르키므로, data num에 접근할수 있음
+                   this.num = this.num + 1;
+                }
+            },
+            data:{
+                num:10
+            }
+        });
+    </script>
+</body>
+</html>
+
+<!--
+    console창에서 개행을 할때는 shift+enter로 한다. 
+    함수같이 {} 안에 써야할경우 그냥 엔터를 치면 먹지않음
+-->

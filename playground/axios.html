@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <button v-on:click="getData">get user</button>
+        <div>
+            {{users}}
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://unpkg.com/axios@1.1.2/dist/axios.min.js"></script>
+    <script>
+        new Vue({
+            el:'#app',
+            data:{
+                users:[]   
+            },
+            methods:{
+                getData:function(){
+                    //console.log(this); 여기서는 vue를 가르킴
+                    const vm = this; //재정의 해준다
+                   axios.get('https://jsonplaceholder.typicode.com/users')
+                        .then(function (response) {
+                            // handle success
+                            console.log(response.data); //필요한 부분이 이것이므로
+                            //this.users = response.data; //여기서 this는 호출했을때의 this가 다르므로 값이 들어가지 않음
+                            vm.users = response.data; //이렇게 써야 data에 user에 해당 값이 들어간다
+                        })
+                        .catch(function (error) {
+                            // handle error
+                            console.log(error);
+                        })
+                        .finally(function () {
+                            // always executed
+                        }); 
+                }
+            }
+        })
+    </script>
+    <!-- https://joshua1988.github.io/web-development/translation/javascript/how-js-works-inside-engine/ -->
+    <!-- https://jsonplaceholder.typicode.com/ -->
+</body>
+</html>

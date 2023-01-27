@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <!-- <app-header v-bind:props속성이름 = "상위 컴포넌트의 데이터 이름"></app-header> -->
+        <app-header v-bind:propsdata="message"></app-header> <!--propsdata:"hi"로 들어감-->
+        <app-content v-bind:propsdata="num"></app-content>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+        const appHeader ={ //카멜케이스법으로 변수 생성
+            template: '<h1>{{propsdata}}</h1>',
+            props:['propsdata'] //프롭스 속성이름은 props: ['원하는이름']
+        }
+        const appContent ={ 
+            template: '<div>{{propsdata}}</div>',
+            props:['propsdata'] //props 이름은 같아도 상관없음, 지역안에서 움직이므로
+        }
+
+        new Vue({
+            el:'#app',
+            components:{
+                'app-header': appHeader,
+                'app-content': appContent,
+            },
+            data:{
+                message:'hi', //데이터속성이름이 message, reactivity가 props에도 적용됨
+                num:10
+            }
+        });
+        //주의할 점: props 변수 명을 카멜 기법(aBow)으로 정의하면 html 태그에서 사용할 때는 케밥 기법(-)으로 선언해야 한다. 아래는 만약 프롭스 속성 명을 카멜 기법인 passedData로 선언했을 때의 주의 메시지
+    </script>
+</body>
+</html>

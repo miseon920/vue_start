@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <!-- {{str}} -->
+        <app-header v-bind:propsdata="num"></app-header>
+        <app-content v-on:pass="deliverNum"></app-content>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+        const appHeader = {
+            template: '<div>header {{propsdata}}</div>',
+            props:['propsdata'] //props로 내려줌
+        }
+        const appContent = {
+            template: '<div>Content<button v-on:click="passNum">pass</button></div>',
+            methods:{
+                passNum:function(){
+                    this.$emit('pass',10); //같은 레벨에게 10을 전달해주기 위해 - pass라는 명칭으로 10이라는 데이터 전달
+                }
+            }
+        }
+
+        new Vue({
+            el:'#app',
+            // data:{
+            //     str:'hi'
+            // }
+            components:{
+                'app-header':appHeader,
+                'app-content':appContent,
+            },
+            data:{
+                num:0
+            },
+            methods:{
+                deliverNum:function(value){ //value는 10이됨
+                    this.num = value;
+                }
+            }
+        })
+
+    </script>
+</body>
+</html>

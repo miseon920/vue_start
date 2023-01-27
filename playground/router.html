@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <div>
+            <!-- router-link는 a 태그로 변형됨 / 라우터에서 페이지를 이동하기 위한 태그, to를 이용하여 링크를 적어줌-->
+            <router-link to="/login">login</router-link>
+            <router-link to="/main">main</router-link>
+        </div>
+        <!--router-view는 라우터가 가지고 있는 태그 / 라우터를 사용할 때만 사용가능한 태그-->
+        <router-view></router-view>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://unpkg.com/vue-router@3.5.3/dist/vue-router.js"></script>
+
+    <script>
+        const LoginComponent = {
+            template:'<div>login</div>'
+        }
+        const MainComponent = {
+            template:'<main>main</main>'
+        }
+        //라우터 인스턴스 생성
+        const router = new VueRouter({
+             /*
+           path:"/"
+           query:Object (empty)
+           params:Object (empty)
+           fullPath:"/"
+           meta:Object (empty)
+           */
+          //페이지의 라우팅 정보 - 어떠한 페이지를 어떻게 연결할것인지 배열로 담김
+          routes:[
+            //로그인 페이지
+            {//페이지의 갯수만큼 배열로 처리
+                path: '/login', //페이지의 url 이름
+                //name:'login',
+                component: LoginComponent //해당 url에서 표시될 컴포넌트
+            }, 
+            //메인 페이지
+            {
+                path:'/main',
+                component: MainComponent
+            }    
+          ],
+          //mode:URL의 해쉬값 제거 속성 
+          mode:'history' //#이 붙었던것이 사라짐
+        });
+
+        new Vue({
+            el:'#app',
+            //router 등록
+            router: router, //앞에 router은 속성, 뒤에 router은 위에 라우터 $route가 생성됨           
+        });
+    </script>
+    <!-- https://joshua1988.github.io/web-development/vuejs/vue-router-navigation-guards/ 더 나아가기 -->
+</body>
+</html>

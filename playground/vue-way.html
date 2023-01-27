@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app"></div>
+
+    <script>
+        const div = document.querySelector("#app");
+        //div.innerHTML = "hello vue!";
+        let viewModel = {};
+
+        //즉시실행 자바스크립트 (function(){})();
+        /*
+        정의되자마자 즉시 실행되는 자바스크립트 함수 : IIFE
+        첫 번째는 괄호((), Grouping Operator)로 둘러싸인 익명함수(Anonymous Function)이다. 
+        이는 전역 스코프에 불필요한 변수를 추가해서 오염시키는 것을 방지할 수 있을 뿐 아니라 IIFE 내부안으로 다른 변수들이 접근하는 것을 막을 수 있는 방법이다.
+        두 번째 부분은 즉시 실행 함수를 생성하는 괄호()이다. 이를 통해 자바스크립트 엔진은 함수를 즉시 해석해서 실행한다.
+        표현 내부의 변수는 외부로부터의 접근이 불가능하다.
+        IIFE를 변수에 할당하면 IIFE 자체는 저장되지 않고, 함수가 실행된 결과만 저장된다.
+        https://developer.mozilla.org/ko/docs/Glossary/IIFE
+        */
+    (function () { //라이브러리화 시키기
+        //reactivity 구성
+        function init() {
+            //reactivity
+            Object.defineProperty(viewModel, 'str', {
+                //속성에 접근했을때 동작을 정의
+                get: function () {
+                    console.log('접근');
+                },
+                //속성의 값을 할당 했을때 동작을 정의
+                set: function (newValue) {
+                    console.log('할당', newValue);
+                    render(newValue)
+                }
+            });
+        }
+
+        //reactivity 실행
+        function render(value) {
+            div.innerHTML = value;
+        }
+
+        //호출
+        init();
+     })();
+        /*Object.defineProperty()
+        
+        객체에 직접 새로운 속성을 정의하거나 이미 존재하는 속성을 수정하고 수정된 객체를 리턴
+        프로퍼티 속성에 접근 권한을 설정할 수 있습니다.
+        프로퍼티에 getter 와 Setter 를 만들 수 있습니다.
+        vue에서는 위의 객체를 사용하여 reactivity를 구성함(reactivity:데이터의 변화를 라이브러리에서 감지해서 화면단에서 자동으로 그려주는것 - 데이터바인딩)
+        따라서 vue에서는 사전에 정의되지 않는 객체를 탐지할 수 없음
+
+        Object.defineProperty(obj, prop, descriptor)
+        1)obj : 속성을 정의할 객체
+        2)prop : 새로 만들거나 수정하려는 속성의 이름
+        3)descriptor : 객체에 정의하는 속성을 기술하는 객체
+        *descriptor의 옵션
+        -value	속성의 값	undefined(디폴트값)
+        -configurable	속성을 변경하거나 삭제 할 경우 true 로 설정	false(디폴트값)
+        -writable	속성의 값을 변경할 경우 true로 설정	false(디폴트값) /  값 수정 불가 처리: false일 경우 속성의 값 수정 불가 - 상수에 활용함
+        -enumarable	for-in 루프에서 해당 프로퍼티를 반환하려면 true 로 설정	false(디폴트값)
+        -set	속성 설정자로 사용할 함수입니다.	undefined(디폴트값)
+        -get	속성 접근자로 사용할 함수로 속성 접근시 해당 함수의 반환값이 속성의 값이 됩니다.	undefined(디폴트값)
+
+        https://blog.woolta.com/categories/3/posts/143
+        */
+    </script>
+</body>
+</html>

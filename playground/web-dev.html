@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app"></div>
+
+    <script>
+       const div = document.querySelector("#app");
+       //console.log(div);
+       let str = "hello vue!!!"; //이부분을 const로 할경우 재선언이 되지 않으므로 사용불가능함
+       div.innerHTML = str;
+
+       str = "hello vue?"; //이렇게 해도 div 텍스트는 재정의 되지 않음
+       div.innerHTML = str; //재정의 해줘야 변경됨
+
+    </script>
+</body>
+</html>
