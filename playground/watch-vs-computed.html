@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        {{num}}
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+        new Vue({
+            el: '#app',
+            data: {
+                num: 10
+            },
+            computed: {
+                doubleNum: function () {
+                    return this.num * 2;
+                }
+                /*
+                    벨리데이션
+                    값에 대한 계산 등 텍스트
+                */
+            },
+            watch: {
+                num: function (newValue, oldValue) {//(현재바뀐값-갱신된값,이전값)
+                    this.fetchUserByNumber(newValue);
+                }
+                /*
+                    매번 실행되기에 부담스러운 로직
+                    num값에 따라 데이터를 불러오는 로직
+                */
+            },
+            methods: {
+                fetchUserByNumber: function (num) {
+                    console.log(num);
+                    //axios.get(num);
+                }
+            }
+        });
+    </script>
+</body>
+</html>
+<!--
+    웬만하면 computed를 사용 하고 그러지 않을경우 watch를 사용
+    -computed를 한마디로 얘기하자면 “반응형 getter”이다.
+    -watch는 Vue 인스턴스의 특정 프로퍼티가 변경될때 지정한 콜백함수가 실행
+    어떻게 사용할 것인가
+    -인스턴스의 data에 할당된 값들 사이의 종속관계를 자동으로 세팅하고자 할때는 computed로 구현하는것이 좋다. 
+    그러니까 doubleNum 는 num 값에 따라 결정되어진다.
+    이 종속관계가 조금이라도 복잡해지면 watch로 구현할 경우 중복계산이 일어나거나 코드 복잡도가 높아질 것이다.
+    이는 오류도 더 많이 발생시킬 것이다.
+    -watch는 특정 프로퍼티의 변경시점에 특정 액션(call api, push route …)을 취하고자 할때 적합하다.
+    -computed의 경우 종속관계가 복잡할 수록 재계산 시점을 예상하기 힘들기 때문에 종속관계의 값으로 계산된 결과를 리턴하는 것 외의 
+    사이드 이펙트가 일어나는 코드를 지양해야한다.
+    -더 쉽게 판단하는 방법: 만약 computed로 구현가능한 것이라면 watch가 아니라 computed로 구현하는것이 대게의 경우 옳다.
+-->

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .warning{
+            color:red
+        }
+        .blue-text{
+            color:blue
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <p v-bind:class="cname">
+            Hello
+        </p>
+        <p v-bind:class="{warning:isError}"> <!--warning = 클래스이름 , isError = 조건 / 조건이 true일때 클래스가 들어감-->
+            조건에 따른 클래스주기
+        </p>
+        <p v-bind:class="errorTextColor"> <!--위의 형식으로 줄수 있지만 코드상 지저분 하므로 computed를 이용해서 준다-->
+            computed 따른 클래스주기
+        </p>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+        new Vue({
+            el:'#app',
+            data:{
+                cname:"blue-text",
+                isError:false
+            },
+            computed:{
+                errorTextColor:function(){
+                    return this.isError ? "warning" : null; 
+                }
+            }
+        });
+    </script>
+</body>
+</html>
